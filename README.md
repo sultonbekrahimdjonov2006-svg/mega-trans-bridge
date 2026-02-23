@@ -16,10 +16,6 @@ index 6f85828d351ecdf6d7c43b0802654572b40cab7b..1b70fbadf4436d29949fdd0e31f54b53
 +```
 +
 +Open <http://localhost:4173>.
- 
-EOF
-)
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/index.html b/index.html
 new file mode 100644
 index 0000000000000000000000000000000000000000..6064122e58a7db57bb91254591cacd5aaa187643
@@ -131,10 +127,6 @@ index 0000000000000000000000000000000000000000..6064122e58a7db57bb91254591cacd5a
 +    <script src="script.js"></script>
 +  </body>
 +</html>
- 
-EOF
-)
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/script.js b/script.js
 new file mode 100644
 index 0000000000000000000000000000000000000000..1a5771fabbcecbcfa2faf081d443ed574a3cf355
@@ -154,10 +146,6 @@ index 0000000000000000000000000000000000000000..1a5771fabbcecbcfa2faf081d443ed57
 +  note.textContent = `${name}, спасибо! Ваша заявка отправлена.`;
 +  form.reset();
 +});
- 
-EOF
-)
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/styles.css b/styles.css
 new file mode 100644
 index 0000000000000000000000000000000000000000..637c55fd18883da3f911b3e5201b4bca60caa862
