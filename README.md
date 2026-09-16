@@ -1,336 +1,124 @@
- (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a/README.md b/README.md
-index 6f85828d351ecdf6d7c43b0802654572b40cab7b..1b70fbadf4436d29949fdd0e31f54b53f2f9b31b 100644
---- a/README.md
-+++ b/README.md
-@@ -1,2 +1,11 @@
- # mega-trans-bridge
--Website for Mega Transport Company
-+
-+Landing page for Mega Trans Bridg Company.
-+
-+## Run locally
-+
-+```bash
-+python3 -m http.server 4173
-+```
-+
-+Open <http://localhost:4173>.
-diff --git a/index.html b/index.html
-new file mode 100644
-index 0000000000000000000000000000000000000000..6064122e58a7db57bb91254591cacd5aaa187643
---- /dev/null
-+++ b/index.html
-@@ -0,0 +1,105 @@
-+<!doctype html>
-+<html lang="ru">
-+  <head>
-+    <meta charset="UTF-8" />
-+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-+    <title>Mega Trans Bridg Company — Международные грузоперевозки</title>
-+    <meta
-+      name="description"
-+      content="Mega Trans Bridg Company — международные перевозки, логистика и таможенное сопровождение для бизнеса."
-+    />
-+    <link rel="stylesheet" href="styles.css" />
-+  </head>
-+  <body>
-+    <header class="hero">
-+      <nav class="container nav">
-+        <div class="logo">Mega Trans Bridg Company</div>
-+        <a href="#contact" class="btn btn-small">Связаться</a>
-+      </nav>
-+
-+      <div class="container hero-content">
-+        <p class="eyebrow">Надёжная логистика для вашего бизнеса</p>
-+        <h1>Быстрые и безопасные грузоперевозки по миру</h1>
-+        <p class="subtitle">
-+          Организуем доставку "под ключ": от планирования маршрута и страхования до
-+          отслеживания груза в реальном времени.
-+        </p>
-+        <div class="hero-actions">
-+          <a href="#services" class="btn">Наши услуги</a>
-+          <a href="#contact" class="btn btn-outline">Получить предложение</a>
-+        </div>
-+      </div>
-+    </header>
-+
-+    <main>
-+      <section id="services" class="section container">
-+        <h2>Услуги</h2>
-+        <div class="cards">
-+          <article class="card">
-+            <h3>Международные перевозки</h3>
-+            <p>Авто, авиа, море и железная дорога — подбираем лучший маршрут по срокам и бюджету.</p>
-+          </article>
-+          <article class="card">
-+            <h3>Таможенное оформление</h3>
-+            <p>Подготовка документов, консультации и сопровождение на всех этапах оформления.</p>
-+          </article>
-+          <article class="card">
-+            <h3>Складская логистика</h3>
-+            <p>Консолидация, хранение, упаковка и распределение грузов для B2B клиентов.</p>
-+          </article>
-+        </div>
-+      </section>
-+
-+      <section class="section section-alt">
-+        <div class="container stats">
-+          <div>
-+            <strong>12+</strong>
-+            <span>лет на рынке</span>
-+          </div>
-+          <div>
-+            <strong>30+</strong>
-+            <span>стран доставки</span>
-+          </div>
-+          <div>
-+            <strong>98%</strong>
-+            <span>грузов вовремя</span>
-+          </div>
-+        </div>
-+      </section>
-+
-+      <section id="contact" class="section container">
-+        <h2>Связаться с нами</h2>
-+        <p>Оставьте заявку, и мы подготовим коммерческое предложение в течение рабочего дня.</p>
-+        <form class="contact-form" id="contactForm">
-+          <label>
-+            Ваше имя
-+            <input type="text" name="name" required />
-+          </label>
-+          <label>
-+            Email
-+            <input type="email" name="email" required />
-+          </label>
-+          <label>
-+            Тип груза
-+            <input type="text" name="cargo" required />
-+          </label>
-+          <label>
-+            Сообщение
-+            <textarea name="message" rows="4" required></textarea>
-+          </label>
-+          <button type="submit" class="btn">Отправить заявку</button>
-+          <p class="form-note" id="formNote" aria-live="polite"></p>
-+        </form>
-+      </section>
-+    </main>
-+
-+    <footer class="footer">
-+      <div class="container footer-content">
-+        <span>© <span id="year"></span> Mega Trans Bridg Company</span>
-+        <span>Логистика без границ</span>
-+      </div>
-+    </footer>
-+
-+    <script src="script.js"></script>
-+  </body>
-+</html>
-diff --git a/script.js b/script.js
-new file mode 100644
-index 0000000000000000000000000000000000000000..1a5771fabbcecbcfa2faf081d443ed574a3cf355
---- /dev/null
-+++ b/script.js
-@@ -0,0 +1,13 @@
-+const yearEl = document.getElementById("year");
-+const form = document.getElementById("contactForm");
-+const note = document.getElementById("formNote");
-+
-+yearEl.textContent = new Date().getFullYear();
-+
-+form.addEventListener("submit", (event) => {
-+  event.preventDefault();
-+  const formData = new FormData(form);
-+  const name = formData.get("name");
-+  note.textContent = `${name}, спасибо! Ваша заявка отправлена.`;
-+  form.reset();
-+});
-diff --git a/styles.css b/styles.css
-new file mode 100644
-index 0000000000000000000000000000000000000000..637c55fd18883da3f911b3e5201b4bca60caa862
---- /dev/null
-+++ b/styles.css
-@@ -0,0 +1,179 @@
-+:root {
-+  --bg: #0b1320;
-+  --surface: #111c2f;
-+  --accent: #f39c12;
-+  --text: #f3f6fb;
-+  --muted: #b6c2d4;
-+}
-+
-+* {
-+  box-sizing: border-box;
-+}
-+
-+body {
-+  margin: 0;
-+  font-family: Inter, Arial, sans-serif;
-+  color: var(--text);
-+  background: #0f1b30;
-+  line-height: 1.5;
-+}
-+
-+.container {
-+  width: min(1100px, 92%);
-+  margin: 0 auto;
-+}
-+
-+.hero {
-+  background: linear-gradient(120deg, var(--bg), #132744);
-+  padding-bottom: 4rem;
-+}
-+
-+.nav {
-+  display: flex;
-+  justify-content: space-between;
-+  align-items: center;
-+  padding: 1.2rem 0;
-+}
-+
-+.logo {
-+  font-weight: 700;
-+}
-+
-+.hero-content {
-+  padding: 4rem 0 2rem;
-+  max-width: 760px;
-+}
-+
-+.eyebrow {
-+  color: var(--accent);
-+  text-transform: uppercase;
-+  letter-spacing: 0.08em;
-+  font-size: 0.8rem;
-+}
-+
-+h1 {
-+  font-size: clamp(1.8rem, 4.5vw, 3rem);
-+  line-height: 1.2;
-+  margin: 0.5rem 0 1rem;
-+}
-+
-+.subtitle {
-+  color: var(--muted);
-+  max-width: 640px;
-+}
-+
-+.hero-actions {
-+  margin-top: 1.4rem;
-+  display: flex;
-+  gap: 0.8rem;
-+  flex-wrap: wrap;
-+}
-+
-+.btn {
-+  display: inline-block;
-+  background: var(--accent);
-+  color: #111;
-+  text-decoration: none;
-+  border: none;
-+  border-radius: 8px;
-+  padding: 0.75rem 1rem;
-+  cursor: pointer;
-+  font-weight: 600;
-+}
-+
-+.btn-small {
-+  padding: 0.55rem 0.85rem;
-+}
-+
-+.btn-outline {
-+  background: transparent;
-+  color: var(--text);
-+  border: 1px solid #7f8fa8;
-+}
-+
-+.section {
-+  padding: 3.5rem 0;
-+}
-+
-+.section h2 {
-+  margin-top: 0;
-+}
-+
-+.cards {
-+  display: grid;
-+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-+  gap: 1rem;
-+}
-+
-+.card {
-+  background: var(--surface);
-+  padding: 1rem;
-+  border-radius: 12px;
-+}
-+
-+.section-alt {
-+  background: #0c1729;
-+}
-+
-+.stats {
-+  display: flex;
-+  justify-content: space-between;
-+  gap: 1rem;
-+  flex-wrap: wrap;
-+}
-+
-+.stats div {
-+  background: var(--surface);
-+  border-radius: 10px;
-+  padding: 1rem 1.2rem;
-+  min-width: 150px;
-+}
-+
-+.stats strong {
-+  display: block;
-+  font-size: 1.4rem;
-+}
-+
-+.stats span {
-+  color: var(--muted);
-+  font-size: 0.95rem;
-+}
-+
-+.contact-form {
-+  margin-top: 1rem;
-+  display: grid;
-+  gap: 0.8rem;
-+  max-width: 650px;
-+}
-+
-+label {
-+  display: grid;
-+  gap: 0.35rem;
-+}
-+
-+input,
-+textarea {
-+  padding: 0.65rem;
-+  border-radius: 8px;
-+  border: 1px solid #44526a;
-+  background: #0c1524;
-+  color: var(--text);
-+}
-+
-+.form-note {
-+  color: #7dd3fc;
-+  min-height: 1.2rem;
-+}
-+
-+.footer {
-+  border-top: 1px solid #24344e;
-+  padding: 1rem 0;
-+}
-+
-+.footer-content {
-+  display: flex;
-+  justify-content: space-between;
-+  gap: 1rem;
-+  flex-wrap: wrap;
-+  color: var(--muted);
-+}
- 
-EOF
-)
+# AI Fashion
+
+AI Fashion — premium-платформа для магазинов одежды с уважительным AI Продавцом. **Task 03** добавляет PostgreSQL/Drizzle persistence foundation; реальные AI, платежи, try-on, voice/image recognition и production OAuth не подключены.
+
+## Почему PostgreSQL + Drizzle
+
+Выбран **PostgreSQL** как надёжная реляционная основа для транзакций, inventory, заказов и связей multi-store. **Drizzle** выбран за типизированную schema-first модель, SQL-миграции и тонкий runtime-слой — repository contracts остаются независимыми от ORM.
+
+## Архитектура
+
+`src/app` содержит UI/API, `src/features` — клиентские feature-модули, а `src/server` — только server-side domain, repositories, persistence, AI orchestration, auth и commerce services. Поток: **UI → API → service → repository → PostgreSQL**. Клиент не импортирует DB или AI provider.
+
+- `src/server/db/schema.ts` и `drizzle/0000_initial.sql` — Drizzle schema и первая PostgreSQL migration.
+- `src/server/repositories/DatabaseCatalogRepository.ts` — persistence adapter; `MockCatalogRepository` сохранён для быстрых unit tests.
+- `src/types` — provider-neutral catalog, AI, auth и search contracts.
+- `src/server/services/validation.ts` — server-boundary validation без доверия к цене, stock или totals от клиента.
+
+## Schema и multi-store
+
+Migration создаёт stores, users/profile preferences, products, variants/inventory, favorites, carts/cart items, orders/order items, reservations, conversations/messages и consultant handoffs. Products, inventory, orders и reservations принадлежат store; user-owned records имеют user boundary. Никакой singleton store ID не заложен в contracts.
+
+## Database setup
+
+```bash
+cp .env.example .env
+# set DATABASE_URL to a local PostgreSQL database
+npm install
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+npm run dev
+```
+
+`db:seed` добавляет один demo store и 36 реалистичных mock products c цветами, размерами, variants, stock и безопасными `placehold.co` URLs. Seed никогда не используется React-компонентами.
+
+## API, validation and auth mode
+
+Catalog routes validate query filters and product IDs, returning clean 400 errors. AI/handoff routes keep explicit mock behavior. Future prices, stock, totals и store authority must always be fetched server-side.
+
+`getCurrentSession()` uses a development-only `x-ai-fashion-dev-user` header or `DEV_USER_ID`; without it the visitor is a guest. This is an auth boundary—not password auth. A future established provider can add email, phone, Google and Apple without changing feature services.
+
+## Product and commerce foundation
+
+`/products/[id]` renders a server-loaded product view with image, price, colors, sizes, availability, store, AI hint and placeholder commerce actions. Product cards route to it.
+
+`FavoriteService`, `CartService` and `ReservationService` model ownership, server-derived price/subtotal, stock restrictions, 24-hour expiry and positive quantities. Their persistence tables are part of the migration; real database adapters/API UI wiring are the next incremental integration.
+
+## Commands
+
+```bash
+npm run dev
+npm run typecheck
+npm run lint
+npm test
+npm run build
+npm run format:check
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+```
+
+## Security
+
+No secrets or provider keys belong in browser code. API inputs are validated, malformed IDs and invalid prices return 4xx responses, and API error responses must not expose stack traces. Future user images need private/signed storage; AI must never infer sensitive attributes.
+
+## Tests and environment limitation
+
+`npm test` uses Node's built-in test runner and covers catalog filters/stock, validation, intent parsing, AI recommendations, cart/subtotal/quantity, favorites ownership and reservations.
+
+This environment’s proxy returns `403 Forbidden` from npmjs.org (observed for `@types/node`) so `npm install`, TypeScript, ESLint, migration execution and production build cannot be verified here. The failure is external: standard npm registry configuration is retained and unnecessary prior dependencies were removed.
+
+## Recommended Task 04
+
+Run PostgreSQL locally, apply/validate migration, finish database adapters for commerce/conversations/handoff, wire authenticated APIs and UI states, then consider a reviewed production auth provider. Do not add real AI or payments yet.
+
+## Task 04 API and runtime status
+
+Authenticated resources expose `GET/POST /api/favorites`, `DELETE /api/favorites/:productId`, `GET/POST /api/cart`, `PATCH/DELETE /api/cart/:itemId`, `GET/POST /api/reservations`, `DELETE /api/reservations/:id`, and `GET /api/auth/session`. Error responses use `{ "error": { "code", "message" } }`; guest requests receive `AUTH_REQUIRED`.
+
+The development services preserve user boundaries in-memory while the PostgreSQL migration reserves equivalent durable tables. Because the environment cannot install dependencies or provide PostgreSQL tools, persistent runtime migration, seeded DB verification, database-backed commerce adapters, conversation persistence, and handoff persistence remain unverified and must be completed with a running PostgreSQL instance before production use.
+
+## Real AI Seller (Task 05)
+
+The server can use OpenAI's Responses API through `OpenAiProvider`; the UI remains provider-agnostic and only calls `/api/ai/seller`. Set `REAL_AI_ENABLED=true`, `OPENAI_API_KEY`, optional `OPENAI_MODEL`, and `AI_REQUEST_TIMEOUT_MS` only on the server. Without a key or enabled flag, `createAiProvider` deliberately selects `MockAiProvider`.
+
+The provider receives only the latest 12 conversation messages and may call the controlled `search_products` catalog tool. Product recommendations are returned structurally from repository results, so the model cannot invent product facts. Requests are capped at 1,200 characters and 40 stored messages; provider requests time out, return safe 429/503 errors, and safe logs contain request ID, latency and tool names—not prompts, keys, or photos. Future work must add user/store quotas and token-cost monitoring.
+
+## AI Seller capabilities (Task 06)
+
+Controlled catalog tools now cover `search_products`, `get_product`, `check_stock`, `find_similar_products`, and `recommend_outfit`. All IDs, prices, sizes, colors, stock states, and outfit totals come from `CatalogRepository`; unknown IDs, unavailable sizes/colors, and over-budget outfits are rejected before any claim reaches the user. Structured responses include product recommendations, actions, optional outfit data, and a follow-up prompt.
+
+`AiUsageGuard` limits requests per minute, input/output size, and tool-call count, with future token accounting intentionally left behind the same abstraction. OpenAI receives only explicitly registered tool definitions; invalid tool names/arguments fail closed. `MockAiProvider` returns the same structured product actions and follow-up fields without a live provider call. Commerce mutations continue through authenticated cart/favorites/reservation APIs rather than model-controlled database access.
+
+# Tasks 07–12 platform foundation
+
+## Image search and privacy
+
+Image contracts, signature-based validation, explicit consent, private random object identities, temporary access and deletion are provider-neutral. `ImageCatalogSearchService` treats detected attributes as visual estimates and resolves every product fact through `CatalogRepository`. The analyzer mock ignores embedded text as untrusted content. No real vision provider or cloud storage has been runtime-verified.
+
+## Virtual try-on
+
+`VirtualTryOnProvider` and the asynchronous job service ground garments in the catalog and store inputs/results through private `ImageStorage`. The mock exercises lifecycle/error paths only; it is not a real generated fitting. Results explicitly say they show how an item _may_ look and do not guarantee physical fit.
+
+## Customer commerce and personalization
+
+Responsive navigation, catalog filters/sorting, product details, honest guest favorites/cart states, profile privacy controls, order/payment boundaries, and server-authoritative commerce services form the customer foundation. Fashion preferences require explicit consent, can be viewed/deleted, use category-specific sizes as guidance, and only rank—never hide—catalog results.
+
+## Multi-store administration
+
+Store memberships and server authorization distinguish customer, staff, store admin and platform admin. Admin UI sections are scaffolds for store-scoped APIs. Inventory validation prevents negative stock. Product-image AI suggestions require human review and cannot set price or inventory. Analytics contracts never fabricate events.
+
+## Production audit status
+
+Migration `0001_platform_foundation.sql` adds tenant/query indexes, phone and cart uniqueness, store memberships, private image assets, VTO jobs, preference profiles and analytics events. Reservations, inventory decrement, order creation and checkout require PostgreSQL transactions/row locking before production to prevent overselling. API keys remain server-only; image text is untrusted; AI tools are allowlisted; commerce mutations require auth and confirmation boundaries.
+
+The repository is **not production ready**: npm access and PostgreSQL are unavailable in this environment, migrations were not executed, OpenAI/vision/VTO were not live-tested, in-memory adapters are process-local, production auth/storage/rate limiting/monitoring are absent, and customer/admin UI runtime accessibility/responsiveness was not browser-verified.
+
+## Task 13 runtime verification
+
+The pre-populated `node_modules` is sufficient to run Next.js and lint, but `npm install` still fails through the environment proxy on `drizzle-kit`; no root lockfile could be generated. On 2026-09-16 the development server rendered `/`, `/ai`, `/search`, `/products/midnight-dress`, `/favorites`, `/cart`, `/profile`, `/admin`, `/try-on/midnight-dress`, `/api/catalog`, and `/api/auth/session` with HTTP 200 and no server runtime error.
+
+Image search is connected through `/api/image-search` to consent, magic-byte/dimension/pixel limits, private in-memory storage, the clearly identified mock analyzer, and catalog-grounded products. Mock VTO is connected through `/api/vto` and `/try-on/[productId]`; it requires development authentication and consent and explicitly states that no real AI result was generated. These process-local adapters are development-only.
+
+PostgreSQL binaries and container tooling remain unavailable. Drizzle packages are the only missing dependency group observed by typecheck/build, so migrations, seed, persistent commerce repositories, and inventory transactions were not executed. Favorites/cart/reservations remain process-local; reservation and VTO deletion ownership checks were hardened, but production persistence and transactional stock locking remain blockers.
