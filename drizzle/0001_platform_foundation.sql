@@ -1,0 +1,13 @@
+CREATE INDEX products_store_category_idx ON products(store_id, category);
+CREATE INDEX products_price_idx ON products(price_amount);
+CREATE UNIQUE INDEX users_phone_unique ON users(phone) WHERE phone IS NOT NULL;
+CREATE UNIQUE INDEX cart_items_cart_variant_unique ON cart_items(cart_id, variant_id);
+CREATE INDEX variants_product_idx ON product_variants(product_id);
+CREATE INDEX reservations_store_status_idx ON reservations(store_id, status);
+CREATE INDEX messages_conversation_created_idx ON messages(conversation_id, created_at);
+CREATE TABLE store_memberships (user_id text NOT NULL REFERENCES users(id), store_id text NOT NULL REFERENCES stores(id), role text NOT NULL CHECK (role IN ('STORE_STAFF','STORE_ADMIN','PLATFORM_ADMIN')), PRIMARY KEY(user_id,store_id));
+CREATE TABLE image_assets (id text PRIMARY KEY, user_id text REFERENCES users(id), store_id text REFERENCES stores(id), purpose text NOT NULL, storage_key text UNIQUE NOT NULL, mime text NOT NULL, bytes integer NOT NULL CHECK(bytes>0), expires_at timestamptz, deleted_at timestamptz, created_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE virtual_try_on_jobs (id text PRIMARY KEY, user_id text REFERENCES users(id), product_id text NOT NULL REFERENCES products(id), input_asset_id text NOT NULL REFERENCES image_assets(id), result_asset_id text REFERENCES image_assets(id), status text NOT NULL, provider_request_id text, expires_at timestamptz, created_at timestamptz NOT NULL DEFAULT now(), updated_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE fashion_preference_profiles (user_id text PRIMARY KEY REFERENCES users(id), preferences jsonb NOT NULL DEFAULT '{}', consent_source text NOT NULL, updated_at timestamptz NOT NULL DEFAULT now());
+CREATE TABLE analytics_events (id text PRIMARY KEY, store_id text NOT NULL REFERENCES stores(id), user_id text REFERENCES users(id), product_id text REFERENCES products(id), type text NOT NULL, created_at timestamptz NOT NULL DEFAULT now());
+CREATE INDEX analytics_store_type_created_idx ON analytics_events(store_id,type,created_at);

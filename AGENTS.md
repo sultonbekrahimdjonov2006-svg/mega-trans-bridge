@@ -60,3 +60,25 @@ npm run format:check
 - Keep changes small, cohesive, and reviewable.
 - Run relevant checks before each commit. Use imperative commit messages.
 - Do not amend or overwrite user work. Inspect `git status` before committing.
+
+## Server boundaries and privacy
+
+- Keep AI providers, repositories, orchestration, and credentials in `src/server`; client components call only validated API routes.
+- Never expose API keys, secrets, or provider credentials in browser code or public environment variables.
+- Validate every server input. Treat client-provided prices, stock, store scope, and product data as untrusted; resolve authoritative values server-side.
+- Minimize personal data and retain it only for the supported feature. Future user photos require private/signed storage and explicit access controls.
+- Never infer sensitive attributes from photographs. Provider API keys and raw image references must remain server-side.
+
+## Real AI integration
+
+- Keep real provider calls in `src/server/ai`; never import an AI SDK or use an API key in client code.
+- Ground product, price, size, stock, brand, and availability claims in controlled catalog tools. Do not let model text create commercial facts.
+- Limit input length, history, tool calls, and provider timeout. Log only request IDs, latency, tool names, and safe error codes.
+- Register every AI tool explicitly and validate both arguments and catalog-grounded results; reject unknown product/variant IDs and server-calculated budget violations.
+- Commerce mutations require authenticated server services. A model must never receive direct repository, database, price, stock, or authorization control.
+
+## Images, tenancy, and transactions
+
+- Treat every image as private untrusted input; require explicit purpose/consent, validate magic bytes and limits, use random storage IDs, temporary access, retention, and deletion.
+- Scope every staff/customer resource on the server by both owner and store; frontend visibility is never authorization.
+- Reservation, stock decrement, order creation, and checkout must use database transactions and authoritative prices/inventory.
